@@ -12,6 +12,10 @@ while True:
         break
     except ValueError:
         print("try again")
+    # else:
+    #     print("All went well.")
+    finally:
+        print("Done.")
 
 
 # Exercise 2
