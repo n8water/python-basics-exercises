@@ -49,27 +49,55 @@ def translate(text):
     translated_words = []
     
     for word in text_as_list:
-        if str(word).startswith(rule1):
-            translated_words.append(word + "ay")
-            continue
-        
-        not_vowel = True
         translated_word = word
-
+        consonants = ""
+                
         for char in translated_word:
-            if char in vowels:
-                not_vowel = False
+            if char in vowels:        
                 break
+            consonants = consonants + char
+
+        if word.startswith(rule1):
+            translated_words.append(word)
+        elif "qu" in word:
+            position_of_qu = word.find("qu")
+            if position_of_qu >= 2:
+                slice_of_word = word[:len(consonants)]
+                rest_of_word = word[len(consonants):]
+                if rest_of_word.startswith(vowels):
+                    translated_word = rest_of_word + slice_of_word
+                    translated_words.append(translated_word)                    
+            elif word.find("qu") >= 0:
+                translated_word = word[2 + position_of_qu:] + word[: 2 + position_of_qu]
+                translated_words.append(translated_word)                
+        else:
+            if "y" in consonants:
+                position_of_y = consonants.find("y")
+                if position_of_y == 0:
+                    translated_word = word[position_of_y + 1:] + word[:position_of_y + 1]
+                    translated_words.append(translated_word)
+                    continue
+                translated_word = word[position_of_y:] + word[:position_of_y]
+                translated_words.append(translated_word)
+                continue
             
+            translated_word = word[len(consonants):] + consonants
+            translated_words.append(translated_word)            
 
-
-            translated_words.append()
-    
     result = ""
+    
     for translation in translated_words:
-        result = result + " " + translation
+        result = result + " " + translation + "ay"
 
-    return result
+    return result.strip()
 
 
-print(translate("apple xray yttria"))
+print(translate("apple"))
+print(translate("queen"))
+print(translate("square"))
+print(translate("pig"))
+print(translate("chair"))
+print(translate("my"))
+print(translate("rhythm"))
+print(translate("liquid"))
+print(translate("yellow"))
