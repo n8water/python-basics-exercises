@@ -130,3 +130,7 @@ print(copy_numbers)
 numbers.sort()
 print(numbers)
 print(copy_numbers)
+
+another_copy = numbers[-1::-1]
+print("An other copy")
+print(another_copy)
