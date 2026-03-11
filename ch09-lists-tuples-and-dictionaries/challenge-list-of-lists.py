@@ -48,6 +48,7 @@ universities = [
     ["Harvard", 19627, 39849],
     ["Massachusetts Institute of Technology", 10566, 40732],
     ["Princeton", 7802, 37000],
+    ["Rice", 5879, 35551],
     ["Stanford", 19535, 40569],
     ["Yale", 11701, 40500]
 ]
@@ -58,16 +59,34 @@ def enrollment_stats(university_list):
     student_enrollments = [uni[1] for uni in university_list]
     print(student_enrollments)
     tuition_fees = [uni[2] for uni in university_list]
-    return [student_enrollments, tuition_fees]
+    return student_enrollments, tuition_fees
 
-def mean(items):
+def mean(item_list):
     """ Returns the mean of the values in the list """
-    pass
+    result = 0
+
+    for item in item_list:
+        result += item
+    
+    return result / len(item_list)
+
+    
 
 def median(item_list):
     """ Returns the median of the values in the list """
-    pass
+    items = item_list[:]
+    number_of_items = len(items)
+    items.sort()
+    if number_of_items % 2 != 0:
+        index = number_of_items // 2
+        return items[index]
+    index = number_of_items // 2
+    median = (items[index - 1] + items[index]) / 2
+    return median
+    
 
+
+# variable for output
 total_students = 0
 total_tuition = 0
 
@@ -77,14 +96,28 @@ student_median = 0
 tuition_mean = 0
 tuition_median = 0
 
-print(enrollment_stats(universities))
+# get data from functions
+students_and_tuition_lists = enrollment_stats(universities)
+students = students_and_tuition_lists[0]
+tuitions = students_and_tuition_lists[1]
+
+total_students = sum(students)
+total_tuition = sum(tuitions)
+
+student_mean = mean(students)
+tuition_mean = mean(tuitions)
+
+student_median = median(students)
+tuition_median = median(tuitions)
+
+#print(enrollment_stats(universities))
 
 print("*" * 30)
-print("Total students:\t", total_students)
-print("Total tuition:\t", total_tuition)
+print(f"Total students:     {total_students:,}")
+print(f"Total tuition:    $ {total_tuition:,}")
 print()
-print("Student mean:\t", student_mean)
-print("Student median:\t", student_median)
+print(f"Student mean:     {student_mean:,.2f}")
+print(f"Student median: {student_median:,}")
 print()
-print("Tuition mean:\t", tuition_mean)
-print("Tuition median:\t", tuition_median)
+print(f"Tuition mean:   $ {tuition_mean:,.2f}")
+print(f"Tuition median: $ {tuition_median :,.2F}")
