@@ -30,3 +30,5 @@ except ValueError:
     print("Invalid number")
 except IndexError:
     print("Index is out of bounds")
+finally:
+    print("Hit finally")
